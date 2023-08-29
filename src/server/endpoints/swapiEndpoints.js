@@ -29,6 +29,11 @@ const applySwapiEndpoints = (server, app) => {
         res.sendStatus(501);
     });
 
+    server.get("/hfswapi/getPlanet", async (req, res) => {
+        const data = await app.db.swPlanet.findAll();
+        res.send(data);
+      });
+
     server.get('/hfswapi/getPlanet/:id', async (req, res) => {
         res.sendStatus(501);
     });
