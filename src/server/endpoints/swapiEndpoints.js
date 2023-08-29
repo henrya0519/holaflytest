@@ -22,7 +22,13 @@ const applySwapiEndpoints = (server, app) => {
             ...req.params,
           };
           const data = await app.db.swPeople.findByPk(_.id);  
-          res.send(data);
+          res.send({
+            name:data.name,
+            mass:data.mass,
+            height:data.height,
+            homeworldName:data.homeworld_name,
+            homeworldId:data.homeworld_id
+          });
     });
 
     server.get('/hfswapi/getPeople/:id', async (req, res) => {
