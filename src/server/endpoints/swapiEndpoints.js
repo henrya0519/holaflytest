@@ -18,7 +18,11 @@ const applySwapiEndpoints = (server, app) => {
         res.send(data);
     });
     server.get('/hfswapi/getPeople/:id', async (req, res) => {
-        res.sendStatus(501);
+        let _ = {
+            ...req.params,
+          };
+          const data = await app.db.swPeople.findByPk(_.id);  
+          res.send(data);
     });
 
     server.get('/hfswapi/getPeople/:id', async (req, res) => {
