@@ -13,6 +13,13 @@ const applySwapiEndpoints = (server, app) => {
         const data = await app.swapiFunctions.genericRequest('https://swapi.dev/api/', 'GET', null, true);
         res.send(data);
     });
+    server.get("/hfswapi/getPeople", async (req, res) => {
+        const data = await app.db.swPeople.findAll();
+        res.send(data);
+    });
+    server.get('/hfswapi/getPeople/:id', async (req, res) => {
+        res.sendStatus(501);
+    });
 
     server.get('/hfswapi/getPeople/:id', async (req, res) => {
         res.sendStatus(501);
