@@ -31,6 +31,14 @@ const applySwapiEndpoints = (server, app) => {
         res.send(data);
     });
 
+    server.post("/hfswapi/createPeople", async (req, res) => {
+        let _ = {
+          ...req.body,
+        };
+        const data = await app.db.swPeople.create({ ..._ });
+        res.send(data);
+    });
+
 }
 
 module.exports = applySwapiEndpoints;
