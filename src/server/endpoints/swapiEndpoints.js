@@ -43,7 +43,22 @@ const applySwapiEndpoints = (server, app) => {
     });
 
     server.get('/hfswapi/getWeightOnPlanetRandom', async (req, res) => {
-        res.sendStatus(501);
+        const allPeople = await app.db.swPeople.findAll();
+        let random = Math.floor(Math.random() * (allPeople.length+1));
+        if (random === 0) {
+          random = 1;
+        }
+        const person = allPeople.find((element) =>{
+            if(element.id === random){
+                return element
+            }
+        })
+        const planet = await app.db.swPlanet.findByPk(Number(person.homeworld_id));
+        const data = await app.swapiFunctions.getWeightOnPlanet(
+            person.mass,
+            planet.gravity
+        );
+        res.send({ weight: data });
     });
 
     server.get('/hfswapi/getLogs',async (req, res) => {
