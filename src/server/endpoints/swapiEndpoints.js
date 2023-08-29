@@ -44,8 +44,17 @@ const applySwapiEndpoints = (server, app) => {
         let _ = {
             ...req.params,
           };
-          const data = await app.db.swPlanet.findByPk(_.id);
-          res.send(data);
+        const data = await app.db.swPlanet.findByPk(_.id);
+        if(data){
+            res.send({
+                name:data.name,
+                gravity:data.gravity,
+            });
+        }
+        else{
+            res.send({code:'1', message:'record not found'});
+        }
+       
     });
 
     server.get('/hfswapi/getWeightOnPlanetRandom', async (req, res) => {
