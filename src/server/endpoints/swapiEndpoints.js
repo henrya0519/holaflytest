@@ -26,9 +26,12 @@ const applySwapiEndpoints = (server, app) => {
     let _ = {
       ...req.params,
     };
+    let lang ={
+      ...req.query
+    }
     const data = await app.db.swPeople.findByPk(_.id);
     if(data){
-      peopleFactory(data)
+      peopleFactory(data,lang.format)
       .then((response) => {
         res.send(response.getPerson())
       })

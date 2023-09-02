@@ -48,7 +48,7 @@ class AbstractPeople {
         return {
             name: this.getName(),
             mass: this.getMass(),
-            height: this.getMass(),
+            height: this.getHeight(),
             homeworldName: this.getHomeworldName(),
             homeworldId: this.getHomeworlId(),
         }

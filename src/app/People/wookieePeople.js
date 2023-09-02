@@ -1,9 +1,8 @@
+const { traslate} = require('../../utils/utils')
+
 class WookieePeople {
 
     constructor(id,name,mass,height,homeworldName,homeworlId) {
-        if (this.constructor == AbstractPeople) {
-            throw new Error("Abstract classes can't be instantiated.");
-        }
         this.id = id
         this.name = name
         this.mass = mass
@@ -42,11 +41,11 @@ class WookieePeople {
 
     getPerson(){
         return {
-            name: this.getName(),
-            mass: this.getMass(),
-            height: this.getMass(),
-            homeworldName: this.getHomeworldName(),
-            homeworldId: this.getHomeworlId(),
+            whrascwo: traslate(this.getName()),
+            acwoahrracao: this.getHeight(),
+            scracc: this.getMass(),
+            acooscwoohoorcanwaWhrascwo: traslate(this.getHomeworldName()),
+            acooscwoohoorcanwaAhwa: this.getHomeworlId(),
         }
     }
 }
