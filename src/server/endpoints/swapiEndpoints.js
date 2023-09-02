@@ -68,7 +68,8 @@ const applySwapiEndpoints = (server, app) => {
 
   server.get("/hfswapi/getWeightOnPlanetRandom", async (req, res) => {
     const allPeople = await app.db.swPeople.findAll();
-    let random = Math.floor(Math.random() * (allPeople.length + 1));
+    if(allPeople.length>0){
+      let random = Math.floor(Math.random() * (allPeople.length + 1));
     if (random === 0) {
       random = 1;
     }
@@ -78,11 +79,23 @@ const applySwapiEndpoints = (server, app) => {
       }
     });
     const planet = await app.db.swPlanet.findByPk(Number(person.homeworld_id));
+    if(planet){
     const data = await app.swapiFunctions.getWeightOnPlanet(
       person.mass,
       planet.gravity
     );
     res.send({ weight: data });
+    }
+    else{
+       res.send({ code: "1", message: "records not found" });
+    }
+   
+
+    }
+    else{
+      res.send({ code: "1", message: "records not found" });
+    }
+    
   });
 
   server.get("/hfswapi/getLogs", async (req, res) => {
