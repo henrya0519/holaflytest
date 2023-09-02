@@ -1,9 +1,12 @@
+
+const {peopleFactory} = require('../../app/People/index')
 const _isWookieeFormat = (req) => {
   if (req.query.format && req.query.format == "wookiee") {
     return true;
   }
   return false;
 };
+
 
 const applySwapiEndpoints = (server, app) => {
   server.get("/hfswapi/test", async (req, res) => {
@@ -24,15 +27,13 @@ const applySwapiEndpoints = (server, app) => {
       ...req.params,
     };
     const data = await app.db.swPeople.findByPk(_.id);
-    if (data) {
-      res.send({
-        name: data.name,
-        mass: data.mass,
-        height: data.height,
-        homeworldName: data.homeworld_name,
-        homeworldId: data.homeworld_id,
-      });
-    } else {
+    if(data){
+      peopleFactory(data)
+      .then((response) => {
+        res.send(response.getPerson())
+      })
+    }
+    else{
       res.send({ code: "1", message: "record not found" });
     }
   });
@@ -43,6 +44,7 @@ const applySwapiEndpoints = (server, app) => {
 
   server.get("/hfswapi/getPlanet", async (req, res) => {
     const data = await app.db.swPlanet.findAll();
+    
     res.send(data);
   });
 
