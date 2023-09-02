@@ -13,7 +13,7 @@ class AbstractPeople {
     }
 
     async init(){
-       console.log('excelente')
+       console.log('Init Class')
     }
 
     getId() {
